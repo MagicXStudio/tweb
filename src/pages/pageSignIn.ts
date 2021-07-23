@@ -363,6 +363,7 @@ let onFirstMount = () => {
     //return;
 
     let phone_number = telEl.value;
+    console.log(`App.id=${App.id} App.hash=${App.hash} phone_number=${phone_number}`);
     apiManager.invokeApi('auth.sendCode', {
       phone_number: phone_number,
       api_id: App.id,

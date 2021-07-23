@@ -24,7 +24,7 @@ export default class Socket extends EventListenerBase<{
     let logTypes = LogTypes.Error | LogTypes.Log;
     if(this.debug) logTypes |= LogTypes.Debug;
     this.log = logger(`WS-${dcId}` + logSuffix, logTypes);
-    this.log('constructor');
+    this.log('Socket->constructor');
     this.connect();
 
     return this;
@@ -56,7 +56,7 @@ export default class Socket extends EventListenerBase<{
       return;
     }
 
-    this.log('close execution');
+    this.log('socket->关闭');
 
     try {
       this.ws.close();
@@ -67,14 +67,14 @@ export default class Socket extends EventListenerBase<{
   }
   
   private handleOpen = () => {
-    this.log('opened');
+    this.log('socket->opened');
 
     this.debug && this.log.debug('sending init packet');
     this.dispatchEvent('open');
   };
 
   private handleError = (e: Event) => {
-    this.log.error('handleError', e);
+    this.log.error('socket->handleError', e);
     this.close();
   };
 
@@ -92,8 +92,7 @@ export default class Socket extends EventListenerBase<{
   };
 
   public send = (body: Uint8Array) => {
-    this.debug && this.log.debug('-> body length to send:', body.length);
-
+    this.debug && this.log.debug('socket->send  body length to send:', body.length);
     this.ws.send(body);
   };
 }
